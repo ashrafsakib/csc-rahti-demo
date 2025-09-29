@@ -189,6 +189,10 @@
                     <button class="button" onclick="testAPI()">Fetch API Data</button>
                     <div id="api-result" class="api-result"></div>
                 </div>
+                <div class="api-demo">
+                    <button class="button get-name__btn" onclick="getNameAPI()">Get Name</button>
+                    <div id="api-get-name-result" class="api-result"></div>
+                </div>
             </div>
             
             <div class="card">
@@ -242,6 +246,31 @@
             }
             
             button.textContent = 'Fetch API Data';
+            button.disabled = false;
+        }
+
+        async function getNameAPI() {
+            const button = document.querySelector('.get-name__btn');
+            const resultDiv = document.getElementById('api-get-name-result');
+            
+            button.textContent = 'Loading...';
+            button.disabled = true;
+            
+            try {
+                const response = await fetch('/api/get-name');
+                const data = await response.json();
+                
+                resultDiv.innerHTML = `
+                    <h3>API Response:</h3>
+                    <p><strong>Name:</strong> ${data.name}</p>
+                `;
+                resultDiv.style.display = 'block';
+            } catch (error) {
+                resultDiv.innerHTML = `<p style="color: red;">Error: An error happened.</p>`;
+                resultDiv.style.display = 'block';
+            }
+            
+            button.textContent = 'Get Name';
             button.disabled = false;
         }
         
