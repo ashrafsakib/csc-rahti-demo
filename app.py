@@ -53,7 +53,8 @@ def home():
 @app.route('/name')
 def getName():
     logger.info("Name requested")
-    return my_name()
+    system_info = get_system_info()
+    return render_template('name.html', system_info=system_info)
 
 @app.route('/health')
 def health_check():

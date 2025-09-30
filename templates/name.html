@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Name - CSC Rahti Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .name-container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 500px;
+        }
+        
+        .error-code {
+            font-size: 4em;
+            color: #e74c3c;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        .name-message {
+            font-size: 1.5em;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+        
+        .back-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            transition: transform 0.3s ease;
+        }
+        
+        .back-button:hover {
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="name-container">
+        <div class="name-message" id="name-container__id"></div>
+        <a href="/" class="back-button">← Back to Main Page</a>
+    </div>
+
+
+    <script>
+        async function getNameAPI() {
+            const resultDiv = document.getElementById('name-container__id');
+            try {
+                const response = await fetch('/api/get-name');
+                const data = await response.json();
+                if(data.name) {
+                    resultDiv.innerHTML = data.name;
+                }else{
+                    resultDiv.innerHTML = "N/A";
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<p style="color: red;">Error: An error happened.</p>`;
+            }
+        }
+        document.addEventListener('DOMContentLoaded', () => {
+            getNameAPI();
+        });
+    </script>
+</body>
+</html>
