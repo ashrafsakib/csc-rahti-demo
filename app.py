@@ -50,6 +50,11 @@ def home():
     system_info = get_system_info()
     return render_template('index.html', system_info=system_info)
 
+@app.route('/name')
+def getName():
+    logger.info("Name requested")
+    return my_name()
+
 @app.route('/health')
 def health_check():
     """Health check endpoint for Kubernetes/OpenShift"""
